@@ -17,43 +17,79 @@ let root = document.documentElement
 let ID = 0
 let categoryIcon
 let selectedCategory
-let moneyAre = [0]
+let moneyArr = [0]
 
 const showPanel = () => {
-    addTransactionPanel.style.display = 'none'
-  
-    addTransactionPanel.style.display = 'flex'
-    
+	addTransactionPanel.style.display = 'none'
+
+	addTransactionPanel.style.display = 'flex'
 }
 const closePanel = () => {
-    addTransactionPanel.style.display = 'none'
-    clearInputs()
-
+	addTransactionPanel.style.display = 'none'
+	clearInputs()
 }
-
 
 const checkForm = () => {
-    if(nameInput.value === '' || amountInput.value === '' || categorySelect.value === 'none')
-    {
-        console.log(`eror`);
-    } else {
-        console.log(`git`);
-    }
+	if (nameInput.value === '' || amountInput.value === '' || categorySelect.value === 'none') {
+		console.log(`eror`)
+	} else {
+		createNewTransaction()
+	}
 }
-
-
 
 const clearInputs = () => {
-    nameInput.value ='' 
-    amountInput.value = ''
-    categorySelect.selectedIndex = 'none'
+	nameInput.value = ''
+	amountInput.value = ''
+	categorySelect.selectedIndex = 'none'
+}
+
+const createNewTransaction = () => {
+	const newTransaction = document.createElement('div')
+	newTransaction.classList.add('transaction')
+	newTransaction.setAttribute('id', ID)
+
+    checkCategory(selectedCategory)
+
+	newTransaction.innerHTML = `
+    <p class="transaction-name">${categoryIcon} ${nameInput.value}</p>
+    <p class="transaction-amount">${amountInput.value}zł 
+    <button class="delete" onclick="deleteTransaction(${ID})"><i class="fas fa-times"></i></button>
+    </p>
+`
+
+	amountInput.value > 0
+		? incomeSection.appendChild(newTransaction) && newTransaction.classList.add('income')
+		: expensesSection.appendChild(newTransaction) && expensesSection.classList.add('expense')
+
+	moneyArr.push((amountInput.value)*1)
+
+    closePanel()
+    ID++
+    clearInputs()
 }
 
 
+const selectCategory = () => {
+    selectedCategory = categorySelect.options[categorySelect.selectedIndex].text
+}
+
+const checkCategory = (transaction) => {
+    switch(transaction) {
+        case '[ + ] Przychód':
+        categoryIcon = '<i class="fas fa-money-bill-wave"></i>';
+        break;
+        case '[ - ] Zakupy':
+        categoryIcon = '<i class="fas fa-cart-arrow-down">';
+        break;
+        case '[ - ] Jedzenie':
+        categoryIcon = '<i class="fas fa-hamburger"></i>';
+        break;
+        case '[ - ] Kino':
+        categoryIcon = '<i class="fas fa-film"></i>';
+        break;
+    }
+}
 
 saveBtn.addEventListener('click', checkForm)
 cancleBtn.addEventListener('click', closePanel)
 addTransactionBtn.addEventListener('click', showPanel)
-
-
-
