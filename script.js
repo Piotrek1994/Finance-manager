@@ -61,7 +61,7 @@ const createNewTransaction = () => {
 		? incomeSection.appendChild(newTransaction) && newTransaction.classList.add('income')
 		: expensesSection.appendChild(newTransaction) && expensesSection.classList.add('expense')
 
-	moneyArr.push(amountInput.value*1) //nie wiem czy bd dzialac jak nie to parseFloat(amountInput.value)
+	moneyArr.push(amountInput.value * 1) //nie wiem czy bd dzialac jak nie to parseFloat(amountInput.value)
 	countMoney(moneyArr)
 	closePanel()
 	ID++
@@ -90,8 +90,22 @@ const checkCategory = transaction => {
 }
 
 const countMoney = money => {
-	const newMoney = money.reduce((a,b) => a + b)
-    availableMoney.textContent = `${newMoney}zł`
+	const newMoney = money.reduce((a, b) => a + b)
+	availableMoney.textContent = `${newMoney}zł`
+}
+
+const deleteTransaction = id => {
+	const transactionToDelete = document.getElementById(id)
+	const transactionAmount = parseFloat(transactionToDelete.childNodes[3].innerText)
+	const indexOfTransaction = moneyArr.indexOf(transactionAmount)
+
+	moneyArr.splice(indexOfTransaction, 1)
+
+	transactionToDelete.classList.contains('income')
+		? incomeSection.removeChild(transactionToDelete)
+		: expensesSection.removeChild(transactionToDelete)
+
+	countMoney(moneyArr)
 }
 
 saveBtn.addEventListener('click', checkForm)
