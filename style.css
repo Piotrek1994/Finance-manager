@@ -139,9 +139,9 @@ h2.title {
 	color: var(--second-color);
 	border: 1px solid var(--border-color);
 	border-radius: 5px;
-	background-color: none;
+	background-color: var(--fist-color);
 	cursor: pointer;
-	transition: color 0.3, bacground-color 0.3s;
+	transition: color 0.3, background-color 0.3s;
 }
 
 .controls button:hover {
@@ -173,13 +173,13 @@ h2.title {
 }
 
 .colors-buttons .light {
-	background: var(--first-color);
-	border: 1px solid var(--second-color);
+	background: #f9f9f9;
+	border: 1px solid #14161f;
 }
 
 .colors-buttons .dark {
-	background: var(--second-color);
-	border: 1px solid var(--first-color);
+	background: #14161f;
+	border: 1px solid #f9f9f9;
 }
 
 .add-transaction-panel {
