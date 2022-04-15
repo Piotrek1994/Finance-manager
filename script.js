@@ -19,6 +19,41 @@ let categoryIcon
 let selectedCategory
 let moneyAre = [0]
 
+const showPanel = () => {
+    addTransactionPanel.style.display = 'none'
+  
+    addTransactionPanel.style.display = 'flex'
+    
+}
+const closePanel = () => {
+    addTransactionPanel.style.display = 'none'
+    clearInputs()
+
+}
+
+
+const checkForm = () => {
+    if(nameInput.value === '' || amountInput.value === '' || categorySelect.value === 'none')
+    {
+        console.log(`eror`);
+    } else {
+        console.log(`git`);
+    }
+}
+
+
+
+const clearInputs = () => {
+    nameInput.value ='' 
+    amountInput.value = ''
+    categorySelect.selectedIndex = 'none'
+}
+
+
+
+saveBtn.addEventListener('click', checkForm)
+cancleBtn.addEventListener('click', closePanel)
+addTransactionBtn.addEventListener('click', showPanel)
 
 
 

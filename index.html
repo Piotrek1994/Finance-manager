@@ -98,7 +98,7 @@
 
         <label for="category">Wybierz kategorię</label>
         <small>( [ + ] oznacza przychod, [ - ] oznacza wydatek)</small>
-        <select id="category">
+        <select id="category" onchange="selectCategory()">
             <option value="none" selected disabled></option>
             <option value="income">[ + ] Przychód</option>
             <option value="shopping">[ - ] Zakupy</option>
