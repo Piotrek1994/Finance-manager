@@ -48,7 +48,7 @@ const createNewTransaction = () => {
 	newTransaction.classList.add('transaction')
 	newTransaction.setAttribute('id', ID)
 
-    checkCategory(selectedCategory)
+	checkCategory(selectedCategory)
 
 	newTransaction.innerHTML = `
     <p class="transaction-name">${categoryIcon} ${nameInput.value}</p>
@@ -61,33 +61,37 @@ const createNewTransaction = () => {
 		? incomeSection.appendChild(newTransaction) && newTransaction.classList.add('income')
 		: expensesSection.appendChild(newTransaction) && expensesSection.classList.add('expense')
 
-	moneyArr.push((amountInput.value)*1)
-
-    closePanel()
-    ID++
-    clearInputs()
+	moneyArr.push(amountInput.value*1) //nie wiem czy bd dzialac jak nie to parseFloat(amountInput.value)
+	countMoney(moneyArr)
+	closePanel()
+	ID++
+	clearInputs()
 }
-
 
 const selectCategory = () => {
-    selectedCategory = categorySelect.options[categorySelect.selectedIndex].text
+	selectedCategory = categorySelect.options[categorySelect.selectedIndex].text
 }
 
-const checkCategory = (transaction) => {
-    switch(transaction) {
-        case '[ + ] Przychód':
-        categoryIcon = '<i class="fas fa-money-bill-wave"></i>';
-        break;
-        case '[ - ] Zakupy':
-        categoryIcon = '<i class="fas fa-cart-arrow-down">';
-        break;
-        case '[ - ] Jedzenie':
-        categoryIcon = '<i class="fas fa-hamburger"></i>';
-        break;
-        case '[ - ] Kino':
-        categoryIcon = '<i class="fas fa-film"></i>';
-        break;
-    }
+const checkCategory = transaction => {
+	switch (transaction) {
+		case '[ + ] Przychód':
+			categoryIcon = '<i class="fas fa-money-bill-wave"></i>'
+			break
+		case '[ - ] Zakupy':
+			categoryIcon = '<i class="fas fa-cart-arrow-down"></i>'
+			break
+		case '[ - ] Jedzenie':
+			categoryIcon = '<i class="fas fa-hamburger"></i>'
+			break
+		case '[ - ] Kino':
+			categoryIcon = '<i class="fas fa-film"></i>'
+			break
+	}
+}
+
+const countMoney = money => {
+	const newMoney = money.reduce((a,b) => a + b)
+    availableMoney.textContent = `${newMoney}zł`
 }
 
 saveBtn.addEventListener('click', checkForm)
